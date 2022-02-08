@@ -6,6 +6,7 @@
 # credits
 # https://stackoverflow.com/questions/24147067/verify-user-and-password-against-a-file-created-by-htpasswd/40131483
 # https://stackoverflow.com/questions/38710483/how-to-stop-ldapsearch1-from-base64-encoding-userpassword-and-other-attributes
+# https://stackoverflow.com/questions/6250698/how-to-decode-url-encoded-string-in-shell
 #
 # requires ldap-utils, openssl and perl
 # tested with Squid 4 using a "auth_param basic program /usr/lib/squid/mSquidAuth.sh" line
@@ -42,8 +43,10 @@ function _setUserAndPass {
 	IFS=$sOldIFS
 	# set it globally
 	sUSER="$1"
-	sPASS="$2"
+	sPASS=$(urldecode "$2")
 }
+
+function urldecode { : "${*//+/ }"; echo -e "${_//%/\\x}"; } # simply beautiful
 
 # loop
 while (true); do
