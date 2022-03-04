@@ -46,7 +46,8 @@ function _setUserAndPass {
 	sPASS=$(urldecode "$2")
 }
 
-function urldecode { : "${*//+/ }"; echo -e "${_//%/\\x}"; } # simply beautiful
+# function urldecode { : "${*//+/ }"; echo -e "${_//%/\\x}"; } # simply beautiful
+function urldecode { echo -e "${*//%/\\x}"; } # leave '+' char intact within passwords
 
 # loop
 while (true); do
